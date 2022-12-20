@@ -1,0 +1,67 @@
+body{
+    background-image: url(../../images/fap.png);
+    background-repeat: no-repeat;
+    background-size:cover;
+    font-family: Arial;
+}
+
+button{
+    background: linear-gradient(to right, rgba(16,11,5,0.86), black);
+    color: white;
+    font-size: 1.5vw;
+    height: 5vw;
+    opacity: 0.8;
+    border: none;
+    margin: auto;
+    margin-bottom: 1%;
+    width: 20vw;
+}
+
+button:hover{
+    background-image:none;
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    color: white;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    color: black;
+    width: 100%;
+    margin-bottom: 0%;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+    border: none;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
