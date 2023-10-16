@@ -1,11 +1,101 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgb(30, 30, 36);
 }
 
-nav {
+.parallax-bg {
+    position: fixed;
+    opacity: 90%;
+    top: 0;
+    left: 0;
+    width: 100%; /* Increase the width to make it larger */
+    height: 100%; /* Increase the height to make it larger */
+    background-image: url("/images/fap.png");
+    background-size: 120% 240%; /* Match the width and height adjustments */
+    z-index: -1;
+}
+
+.navbar {
+    background-color: rgb(30, 30, 36);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     text-transform: uppercase;
 }
 
-nav > li > a{
-    margin: 5vw;
+#nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
 }
+
+.nav-item {
+    margin: 0 15px;
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+}
+
+.nav-item i {
+    margin-right: 1vw;
+}
+
+.nav-item a:hover i{
+    color:#c74646;
+}
+
+.nav-item a::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: #c74646;
+    transition: width 0.3s;
+}
+
+.nav-item a:hover::after {
+    width: 100%;
+}
+
+/* ... Previous CSS styles ... */
+
+.sound-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the start of the flex container */
+    padding: 20px;
+}
+
+button {
+    width: calc(25% - 5%); /* 25% width for 4 buttons per row with 20px margin */
+    margin: 10px; /* Adjust margin as needed */
+    height: 10vh;
+    color: white;
+    background: rgba(30, 30, 36, 0.9);
+    border: 2px solid rgb(24, 24, 24);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+    transition: 0.3s ease-in-out;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+/* ... Rest of your CSS styles ... */
