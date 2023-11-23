@@ -104,13 +104,13 @@ function loadSounds(category) {
     const parallaxBg = document.querySelector(".parallax-bg");
     switch(category) {
         case "media":
-            parallaxBg.style.backgroundImage = 'url("images/fap.png")';  
+            parallaxBg.style.backgroundImage = 'url("images/original.jpg")';  
             break;
         case "media_online":
             parallaxBg.style.backgroundImage = 'url("images/online.jpg")';  
             break;
         case "media_pubg":
-            parallaxBg.style.backgroundImage = 'url("images/gps.jpg")';  
+            parallaxBg.style.backgroundImage = 'url("images/pubg.jpg")';  
             break;
         case "media_gps":
             parallaxBg.style.backgroundImage = 'url("images/gps.jpg")';  
