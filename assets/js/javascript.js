@@ -1,79 +1,153 @@
 "use strict";
 
-let soundList = ["Tronk", "Blowjob", "Vijzn", "Fotos", "Gazon", "Nieje", "Kak", "AHHH", "Gerust",
-                "Jajahh", "Oefening", "Tronie", "Aarslikker Denny", "La Mer", "Neen", "Braken",
-                "Bellen", "Preut", "Salut", "Wa Ist", "Uhuhu", "Escaleren", "Vrij", "Nietnemeer",
-                "Waddest", "Hohohohoho", "Dagezien", "Blijven", "Waszeda", "Prikentik", "Zaadput",
-                "Interesseren", "Da Kind", "Filmavond", "Laat Maar", "Handjes", "West Vlamingen",
-                "Mij Killt", "Die Keirel", "Sebiet", "Ni Lopen", "Double Kill", "Camionnette Stijn", "Chocolade",
-                "Hallo", "Kakken", "Op De Baan", "Zoemaar", "Vettigen Das", "Gerust Laten", "Wooh", "Juiste Antwoord", "Gaarne", "Faking Nice", "NiGezegd",
-                "Bedgen", "Boerkes", "EEJ", "Eij Das Rickert", "Ik Ben Bezig", "Jeezeke", "Kloeit",
-                "Ni Door Weh", "Not Even Answer", "Oe Da Komt", "Oud A Bek", "P P P", "Please Answer",
-                "Sac A Dos", "Screenshare", "Snotteren", "Sst Sst", "Vroeg Les", "Vrolijke Bui", "Was Tees",
-                "Wie Doet Da Nou", "Wtf Fotos", "Zijt Stil"];
+const categories = ["media", "media_online", "media_pubg", "media_gps"]
 
-let gpsList = ["1 Km Rechtdoor", "2 Km Rechtdoor", "10 Km Rechtdoor", "Aanrijden",
-                "Rotonde 1", "Rotonde 2", "Rotonde 3", "Rotonde 4", "Omdraaien", "Sla Rechts Af", "Traktor", "Volg Amsterdam",
-                "Volg Brussel", "Volg Merchtem", "Volg New-York", "Volg Parijs"];
+document.addEventListener("DOMContentLoaded", function() {
+    createNavigation(categories);
+    addParallaxEffect();
+    
+});
 
-let pubgList = ["1 Kill", "2 Man Hier", "4Times", "Appartments", "Be Quiet", "Doodgegaan", "F_ck You", "GGWP", "Iemand 7.62", "Ik Heb Kar",
-                "Ik Kom Af", "Knocked", "Kzie ze ni", "Meepakken", "Nog Niks", "Opt Dak Geland", "Rushn", "Schijt Van", "Scopes", "Surrender", "Teammate", "Tis Goe", "Tuurlijk", "Weir Aar Joe", "Yes", "Yorick Ja Duwen",
-                "5min Hunt", "Crate", "Farterig Spel", "Fucking Noob", "Hij Zit Baajtn", "Hij Zit Ni Baajtn", "Placebo Binnen",
-                "Schone Kill", "Stond Nie Op", "Stond Op Single", "Take My Loot", "Waar Zit Die"];
+/** 
+ * Function to dynamically load navigation.
+ * @param {Array} navTitles
+ */
+function createNavigation(navTitles){
+    const navContainer = document.getElementById("nav-list");
 
-document.addEventListener('DOMContentLoaded', init);
+    navTitles.forEach(function(category) {
+        let navListItem = document.createElement("li");
+        navListItem.classList.add("nav-item");
+        let navItem = document.createElement("a");
+        navItem.href = "#";
+        let icon = document.createElement("i");
+        let categoryDisplayName = category;
+        switch(category) {
+            case "media":
+                categoryDisplayName = "Original Gangster";
+                icon.classList.add("fa-solid");
+                icon.classList.add("fa-skull");
+                break;
+            case "media_online":
+                categoryDisplayName = "Online Gangster"
+                icon.classList.add("fa-solid");
+                icon.classList.add("fa-globe");
+                break;
+            case "media_pubg":
+                categoryDisplayName = "PUBG"
+                icon.classList.add("fa-solid");
+                icon.classList.add("fa-person-rifle");
+                break;
+            case "media_gps":
+                categoryDisplayName = "GPS"
+                icon.classList.add("fa-solid");
+                icon.classList.add("fa-map");
+              break;
+            default:
+                categoryDisplayName
+        }
+
+        navItem.appendChild(icon);
+        navItem.appendChild(document.createTextNode(categoryDisplayName));
+
+        
+        navItem.addEventListener("click", function() {
+            loadSounds(category);
+        });
+        
+        navListItem.appendChild(navItem);
+        navContainer.appendChild(navListItem);
+    });
+    
+}
 
 
-function init() {
 
-    addSounds();
+/** 
+ * Function to load sounds for a specific category.
+ * @param {string} category
+ */
+function loadSounds(category) {
+    let soundList;
+
+    switch (category) {
+        case "media":
+            soundList = originalList;
+            break;
+        case "media_online":
+            soundList = onlineList;
+            break;
+        case "media_pubg":
+            soundList = pubgList;
+            break;
+        case "media_gps":
+            soundList = gpsList;
+            break;
+
+        default:
+            soundList = originalList;
+    }
+
+    let soundContainer = document.getElementById("sound-container");
+    soundContainer.innerHTML = ""; // Clear previous sounds
+
+    soundList.forEach(function (sound) {
+        let soundButton = document.createElement("button");
+        soundButton.textContent = sound.replace(".mp3", "");
+        soundButton.addEventListener("click", function () {
+            playSound(category, sound);
+        });
+        soundContainer.appendChild(soundButton);
+    });
+  
+    
+    const parallaxBg = document.querySelector(".parallax-bg");
+    switch(category) {
+        case "media":
+            parallaxBg.style.backgroundImage = 'url("images/fap.png")';  
+            break;
+        case "media_online":
+            parallaxBg.style.backgroundImage = 'url("images/online.jpg")';  
+            break;
+        case "media_pubg":
+            parallaxBg.style.backgroundImage = 'url("images/gps.jpg")';  
+            break;
+        case "media_gps":
+            parallaxBg.style.backgroundImage = 'url("images/gps.jpg")';  
+            break;
+        default:
+            parallaxBg.style.backgroundImage = 'url("images/fap.png")'; 
+    }
 
 }
 
-function addSounds(){
-
-
-    for(let i = 0; i < soundList.length; i++){
-        document.querySelector("#FullSoundBoard").innerHTML += "<button id='" + soundList[i] + "' onclick='playSound(\"" + soundList[i].toString()+ "\")'>" + soundList[i] + "</button>";
-    }
-
-    for(let i = 0; i < gpsList.length; i++){
-        document.querySelector("#GPS").innerHTML += "<button id='" + gpsList[i] + "' onclick='playSoundGPS(\"" + gpsList[i].toString()+ "\")'>" + gpsList[i] + "</button>";
-    }
-
-    for(let i = 0; i < pubgList.length; i++){
-        document.querySelector("#PUBG").innerHTML += "<button id='" + pubgList[i] + "' onclick='playSoundPUBG(\"" + pubgList[i].toString()+ "\")'>" + pubgList[i] + "</button>";
-    }
-}
-
-function playSound(sound) {
-        let trigger = new Audio("assets/media/" + sound +".mp3");
-        trigger.play();
-        trigger.currentTime=0;
-}
-
-function playSoundGPS(sound) {
-    let trigger = new Audio("assets/media_GPS/" + sound +".mp3");
+/** 
+ * Function to play a sound from a given category and file.
+ * @param {string} category
+ * @param {string} sound
+ */
+function playSound(category, sound) {
+    let trigger = new Audio("assets/" + category + "/" + sound);
     trigger.play();
     trigger.currentTime=0;
 }
 
-function playSoundPUBG(sound) {
-    let trigger = new Audio("assets/media_PUBG/" + sound +".mp3");
-    trigger.play();
-    trigger.currentTime=0;
-}
+function addParallaxEffect() {
+    const parallaxBg = document.querySelector(".parallax-bg");
 
-function openBox(evt, tabName) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "flex";
-    evt.currentTarget.className += " active";
+    document.addEventListener("mousemove", function (event) {
+        const mouseX = (event.clientX - window.innerWidth / 2) / window.innerWidth;
+        const mouseY = (event.clientY - window.innerHeight / 2) / window.innerHeight;
+        const offsetX = mouseX * 30;
+        const offsetY = mouseY * 30;
+        const scaleValue = 1.2; // Adjust the scale factor as needed
+
+        parallaxBg.style.transition = "none";
+        parallaxBg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scaleValue})`;
+    });
+
+    document.addEventListener("mouseleave", function () {
+        parallaxBg.style.transition = "transform 0.3s ease-in-out";
+        parallaxBg.style.transform = "translate(0, 0) scale(1)";
+    });
 }
