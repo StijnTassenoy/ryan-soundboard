@@ -5,8 +5,37 @@ const categories = ["media", "media_online", "media_pubg", "media_gps"]
 document.addEventListener("DOMContentLoaded", function() {
     createNavigation(categories);
     addParallaxEffect();
+
+    const parallaxBg = document.querySelector(".parallax-bg");
+    const soundContainer = document.querySelector(".sound-container");
+
+    [parallaxBg, soundContainer].forEach(element => {
+        element.addEventListener("click", function (event) {
+            if (!event.target.closest("button")) {
+                playSound("media_easter_eggs", "knoppen.mp3");
+            }
+        });
+    });
+
+    let lastButtonClickTime = Date.now();
+    let klikkenPlayed = false;
+
+    // Set up event listener for visibility change
+    document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "hidden") {
+            // Tab is not visible
+            setTimeout(function () {
+                playSound("media_easter_eggs", "klikken.mp3");
+                klikkenPlayed = true;
+            }, 1 * 60 * 1000); // 5 minutes in milliseconds
+        } else {
+            // Tab is visible again, reset the flag
+            klikkenPlayed = false;
+        }
+    });
     
 });
+
 
 /** 
  * Function to dynamically load navigation.
